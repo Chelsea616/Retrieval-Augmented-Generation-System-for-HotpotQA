@@ -1,0 +1,17 @@
+torch>=2.0.0
+transformers>=4.37.0
+sentence-transformers>=2.5.1
+faiss-cpu>=1.7.4  
+rank-bm25>=0.2.1
+ragatouille>=0.0.8
+gensim>=4.3.0
+numpy>=1.21.0
+pandas>=1.5.0
+pytrec-eval>=0.5.0
+huggingface-hub>=0.17.0
+accelerate>=0.24.0
+
+# frontend
+Flask==3.1.2
+PyYAML==6.0.3
+spacy==3.8.11

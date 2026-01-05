@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+venv/
+venv_flask/
+.env
+rag_backend/data/
+rag_backend/indexes/
+*.faiss
+*.pkl
+*.jsonl
+logs/
+cache/

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>RAG System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="chat-container">
+
+    <!-- chat history -->
+    <div class="chat-history">
+      {% for turn in history %}
+        <!-- user message bubble -->
+        <div class="message user">
+          <div class="bubble user-bubble">{{ turn.question }}</div>
+        </div>
+
+        <!-- bot sub-queries bubble -->
+        <div class="message sub_query">
+          <div class="bubble bot-bubble">
+            <strong>sub_queries:</strong>
+            <ol>
+              {% for item in turn.sub_queries %}
+                <li>{{ item }}</li>
+              {% endfor %}
+            </ol>
+          </div>
+        </div>
+
+        <div class="message bot">
+          <div class="bubble bot-bubble">
+            <strong>Answer:</strong> {{ turn.answer }}
+          </div>
+        </div>
+
+        <!-- bot source documents bubble -->
+        {% if turn.retrieved_docs %}
+          <div class="message bot">
+            <div class="bubble bot-bubble">
+              <strong>📚 Source Docs:</strong>
+              <ul>
+                {% for doc in turn.retrieved_docs %}
+                  <li>
+                    <em>[{{ doc.id }}]</em>
+                    (score: {{ doc.score }}) —
+                    {{ doc.text }}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- input field -->
+    <form class="input-form" method="post">
+      <input type="text" name="question" placeholder="Ask anything…" required>
+      <button type="submit">Send</button>
+    </form>
+
+  </div>
+</body>
+</html>

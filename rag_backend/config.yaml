@@ -1,0 +1,95 @@
+#This configuration file defines all parameters for the RAG system including retrieval methods, generation models, and output settings.
+#Key Sections:
+#Retrieval: Configures different retrieval methods (BM25, Dense, ColBERT, etc.)
+#Generation: Sets up the Qwen language model and generation parameters
+#Output: Defines file paths for prediction results
+
+
+
+# retrieval:
+#   method: "bm25"
+#   top_k: 10
+#   index_path: "indexes/bm25_index.pkl"
+#   k1: 1.5
+#   b: 0.75
+
+# retrieval:
+#   method: "word2vec"
+#   vector_size: 100
+#   window: 5
+#   min_count: 2
+#   sg: 1
+#   use_weighting: true
+#   top_k: 10
+#   index_path: "indexes/word2vec_index.pkl" 
+
+retrieval:
+  method: "dense"
+  top_k: 10
+  model_name: "intfloat/e5-large-v2"
+#  index_path: "indexes/dense_index.faiss"
+  index_path: "rag_backend/indexes/dense_index.faiss"
+
+# retrieval:
+#   method: "instructed_dense"
+#   top_k: 10
+#   model_name: "intfloat/e5-mistral-7b-instruct"
+#   index_path: "indexes/instructed_dense_index.faiss"
+
+# retrieval:
+#   method: "colbert"
+#   model_name: "colbert-ir/colbertv2.0"
+#   #index_name: "hq_small_colbert_index"
+#   top_k: 10
+
+
+# retrieval:
+#   method: "hybrid"
+#   sub_retrievers:
+#   - 
+#     method: "bm25"
+#     top_k: 10
+#     index_path: "indexes/bm25_index.pkl"
+#     k1: 1.5
+#     b: 0.75
+#   - 
+#     method: "word2vec"
+#     vector_size: 100
+#     window: 5
+#     min_count: 2
+#     sg: 1
+#     use_weighting: true
+#     top_k: 10
+#     index_path: "indexes/word2vec_index.pkl" 
+  # - 
+  #   method: "dense"
+  #   top_k: 10
+  #   model_name: "intfloat/e5-large-v2"
+  #   index_path: "indexes/dense_index.faiss"
+  # - 
+  #   method: "instructed_dense"
+  #   top_k: 10
+  #   model_name: "intfloat/e5-mistral-7b-instruct"
+  #   index_path: "indexes/instructed_dense_index.faiss"
+  # - 
+  #   method: "colbert"
+  #   model_name: "colbert-ir/colbertv2.0"
+  #   top_k: 10
+top_k: 10
+
+# --- Generation Configuration ---
+# Settings for the generative LLM.
+generation:
+  model_name: "Qwen/Qwen2.5-0.5B-Instruct"
+  cache_dir: "D:/huggingface_cache/hub" 
+  generation_params:
+    max_new_tokens: 250
+    temperature: 0.7
+    top_p: 0.8
+    repetition_penalty: 1.05
+# --- Output Configuration ---
+# Path for the final prediction file.
+output:
+  train_prediction_file: "result/train_prediction.jsonl"
+  val_prediction_file: "result/val_prediction.jsonl"
+  test_prediction_file: "result/test_prediction.jsonl"
